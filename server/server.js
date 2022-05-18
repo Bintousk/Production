@@ -8,7 +8,7 @@ import  * as io from 'socket.io'
 const app = express();
 app.use(express.json());
 app.use(cors());
-const port = process.env.PORT || 5002;
+const port = 5002;
 const server = createServer(app)
 server.listen(port, () => console.log(`Server is running at ${port}........`))
 app.get("/",(req,res) => res.send("Server is running..."))
@@ -44,7 +44,8 @@ connection.once('open', ()=>{
                     description : change.fullDocument.description,
                     location: change.fullDocument.location,
                     quantity: change.fullDocument.quantity,
-                    price: change.fullDocument.price
+                    price: change.fullDocument.price,
+                    deletionComment: change.fullDocument.deletionComment
                 }
              
                 socketIo.emit('item-added', item)
@@ -61,7 +62,8 @@ connection.once('open', ()=>{
                     description : change.fullDocument.description,
                     location: change.fullDocument.location,
                     quantity: change.fullDocument.quantity,
-                    price: change.fullDocument.price
+                    price: change.fullDocument.price,
+                    deletionComment: change.fullDocument.deletionComment
                 }
                 socketIo.emit('item-updated',updatedItem)
                 break;

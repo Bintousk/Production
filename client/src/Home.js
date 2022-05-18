@@ -5,6 +5,7 @@ import "./Home.css"
 import axios from 'axios'
 
 import Card from './Card';
+import Trash from './Trash';
 
 const Home = () => {
 
@@ -24,11 +25,27 @@ const Home = () => {
         <div>
             <h1 className='title'>Items List</h1>
             <div className="container">
-                {items && items.map(item => (
-                    <Card type="card" key={item._id} 
+                {items && items.map(item => ! item.deletionComment ? (
+                    <Card type="row" key={item._id} 
                     item={item} allItems={items} 
                     setItems={setItems}/>
-                ))}
+                ):
+                <React.Fragment key={item._id}></React.Fragment>
+                // <div key={item._id}></div>
+                )}
+                
+                <Card type="add" setItems={setItems}/>
+            </div>
+            <h1 className='title'>Garbage List</h1>
+            <div className="container">
+                {items && items.map(item =>  item.deletionComment ? (
+                    <Trash type="row" key={item._id} 
+                    item={item} allItems={items} 
+                    setItems={setItems}/>
+                ):
+                <React.Fragment key={item._id}></React.Fragment>
+                // <div key={item._id}></div>
+                )}
                 
                 <Card type="add" setItems={setItems}/>
             </div>

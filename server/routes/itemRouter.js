@@ -20,6 +20,7 @@ Router.post(
             location: req.body.location,
             quantity: req.body.quantity,
             price : req.body.price,
+            deletionComment: ''
         }
         const item = new Item(data);
         try {
@@ -40,13 +41,40 @@ Router.put(
             location: req.body.location,
             quantity: req.body.quantity,
             price : req.body.price,
+            deletionComment: req.body.deletionComment
         }
 
         const id = req.body._id;
-
+        console.log("uuu");
         try {
             await Item.findByIdAndUpdate(id,data,(err,updatedData)=>{
                 if(!err) res.send(`Updated data`)
+                else console.log(err)
+            })
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+)
+Router.put(
+    '/trash',
+    async (req, res) => {
+        const data = {
+            name : req.body.name,
+            description :req.body.description,
+            location: req.body.location,
+            quantity: req.body.quantity,
+            price : req.body.price,
+            deletionComment: req.body.deletionComment,
+        }
+
+        const id = req.body._id;
+        console.log("ttt");
+
+        try {
+            await Item.findByIdAndUpdate(id,data,(err,updatedData)=>{
+                if(!err) res.send(`Moved to trash`)
                 else console.log(err)
             })
         } catch (error) {

@@ -18,7 +18,8 @@ const Popup = ({ setPopup, item, setItems, setCardItem }) => {
         description: '',
         location: '',
         quantity: '',
-        price: '' 
+        price: '' ,
+        deletionComment: ''
     });
 
     useEffect(() => {
@@ -34,7 +35,8 @@ const Popup = ({ setPopup, item, setItems, setCardItem }) => {
             description: data.description,
             location: data.location,
             quantity: data.quantity,
-            price: data.price
+            price: data.price,
+            deletionComment: ''
         }
 
         
@@ -60,11 +62,13 @@ const Popup = ({ setPopup, item, setItems, setCardItem }) => {
             location: data.location,
             quantity: data.quantity,
             price: data.price,
+            deletionComment: data.deletionComment,
             _id: data._id
         }
         axios.put("http://localhost:5002/items/update",uData)
 
         socket.once('item-updated', (updatedData) => {
+            console.log("aaaa");
             setCardItem(updatedData)
         })
 
@@ -75,7 +79,7 @@ const Popup = ({ setPopup, item, setItems, setCardItem }) => {
         <div className="pop-up">
             <div className="input-box">
                 <CancelIcon onClick={() => setPopup(false)} className="cross-btn" />
-                <h3>Enter user details:</h3>
+                <h3>Enter item details:</h3>
                 <input type="text"
                     value={data.name}
                     onChange={(e) => setData( prevstate => ({
@@ -99,10 +103,11 @@ const Popup = ({ setPopup, item, setItems, setCardItem }) => {
                 />
                 <input type="number"
                     value={data.quantity}
-                    onChange={(e) => setData(prevstate => ({
+                    onChange={(e) => {
+                        setData(prevstate => ({
                         ...prevstate,
                         quantity: e.target.value
-                    }))}
+                    }))}}
                 />
                 <input type="number"
                     value={data.price}
