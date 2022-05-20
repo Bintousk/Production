@@ -21,13 +21,14 @@ const Popup = ({ setPopup, item, setItems, setCardItem }) => {
         price: '' ,
         deletionComment: ''
     });
-
+    
     useEffect(() => {
         if(item) setData(item);
     }, [])
 
 
-
+  
+  
     const addItem = () => {
         
         const uData = {
@@ -54,9 +55,35 @@ const Popup = ({ setPopup, item, setItems, setCardItem }) => {
         setPopup(false)
     }
 
-
+    const valid = () => {
+      if(data.name === ""){
+        return false;
+      }
+      if(data.description === "") {
+        return false;
+        
+      }
+      if(data.locaton === ""){
+        return false;
+        
+      }
+      if(
+        isNaN(+(data.price)) ||
+        data.price <= 0 ){
+        return false;
+        
+      }
+      if(
+        isNaN(+(data.quantity)) ||
+        data.quantity <= 0 ){
+        return false;
+        
+      }
+      return true
+    }
 
     const updateItem = () => {
+      if(valid()){
         const uData = {
             name: data.name,
             description: data.description,
@@ -74,6 +101,11 @@ const Popup = ({ setPopup, item, setItems, setCardItem }) => {
         })
 
         setPopup(false)
+      }
+      else{
+        
+        alert("Please fill all the inputs and quantity and price have to be positive number !");
+      }
     }
 
     return (
@@ -81,6 +113,8 @@ const Popup = ({ setPopup, item, setItems, setCardItem }) => {
             <div className="input-box">
                 <CancelIcon onClick={() => setPopup(false)} className="cross-btn" />
                 <h3>Enter item details:</h3>
+              <label>
+                Name
                 <input type="text"
                     value={data.name}
                     onChange={(e) => setData( prevstate => ({
@@ -88,6 +122,10 @@ const Popup = ({ setPopup, item, setItems, setCardItem }) => {
                         name: e.target.value
                     }))}
                 />
+              </label>
+                
+              <label>
+                Description
                 <input type="text"
                     value={data.description}
                     onChange={(e) => setData(prevstate => ({
@@ -95,28 +133,45 @@ const Popup = ({ setPopup, item, setItems, setCardItem }) => {
                         description: e.target.value
                     }))}
                 />
-                <input type="text"
+              </label>
+                
+              <label>
+                Location
+                 <input type="text"
                     value={data.location}
                     onChange={(e) => setData(prevstate => ({
                         ...prevstate,
                         location: e.target.value
                     }))}
                 />
-                <input type="number"
+              </label>
+               
+              <label>
+                Quantity
+                 <input 
+                   type="number"
                     value={data.quantity}
                     onChange={(e) => {
-                        setData(prevstate => ({
+                              setData(prevstate => ({
                         ...prevstate,
                         quantity: e.target.value
-                    }))}}
+                    }))
+                         }
+                     }
                 />
-                <input type="number"
+              </label>
+               
+              <label>
+                Price($)
+                 <input type="number"
                     value={data.price}
                     onChange={(e) => setData(prevstate => ({
                         ...prevstate,
                         price: e.target.value
                     }))}
                 />
+              </label>
+               
                 {!item ? (
                     <button onClick={addItem}>
                         Add User
