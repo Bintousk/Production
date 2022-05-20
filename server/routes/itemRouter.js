@@ -45,7 +45,7 @@ Router.put(
         }
 
         const id = req.body._id;
-        console.log("uuu");
+       
         try {
             await Item.findByIdAndUpdate(id,data,(err,updatedData)=>{
                 if(!err) res.send(`Updated data`)
@@ -70,8 +70,7 @@ Router.put(
         }
 
         const id = req.body._id;
-        console.log("ttt");
-
+        
         try {
             await Item.findByIdAndUpdate(id,data,(err,updatedData)=>{
                 if(!err) res.send(`Moved to trash`)

@@ -35,6 +35,7 @@ const Trash = ({ type, item, setItems, allItems }) => {
             setItems(newItems)
             console.log(newItems)
             console.log(id)
+          window.location.reload()
         })
     }
 
@@ -51,10 +52,11 @@ const Trash = ({ type, item, setItems, allItems }) => {
         axios.put("http://localhost:5002/items/update",uData)
 
         socket.once('item-updated', (updatedData) => {
-            console.log("aaaa");
-            setCardItem(updatedData)
+           
+            setCardItem(updatedData);
+          window.location.reload()
         })
-        window.location.reload()
+        
 
     }
     

@@ -41,9 +41,9 @@ const Card = ({ type, item, setItems, allItems }) => {
 
         socket.once('item-updated', (updatedData) => {
             console.log("aaaa");
-            setCardItem(updatedData)
+            setCardItem(updatedData);
         })
-        window.location.reload()
+   
     }
 
     
@@ -62,7 +62,7 @@ const Card = ({ type, item, setItems, allItems }) => {
             }
             {(type === 'row') ? (
                 <div className="cards">
-                    
+                 
                         <div className="content">
                             <strong>{carItem.name}</strong>
                             <p className="about">Description: {carItem.description}</p>

@@ -47,6 +47,7 @@ const Popup = ({ setPopup, item, setItems, setCardItem }) => {
         socket.once('item-added', newData => {
             console.log(newData)
             setItems((item) => ([...item, newData]))
+          
         })
         
         

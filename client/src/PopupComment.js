@@ -45,8 +45,9 @@ const PopupComment = ({ setPopupComment, item, setItems, setCardItem }) => {
         socket.once('item-updated', (updatedData) => {
             console.log("aaaa");
             setCardItem(updatedData)
+             window.location.reload()
         })
-        window.location.reload()
+       
     }
 
 

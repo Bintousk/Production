@@ -1,0 +1,2 @@
+language = "bash"
+run = "(cd server && npm install && npm start) &(cd client && npm install && npm start)"
