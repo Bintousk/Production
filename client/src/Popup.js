@@ -182,11 +182,11 @@ const Popup = ({ setPopup, item, setItems, setCardItem }) => {
                
                 {!item ? (
                     <button onClick={addItem}>
-                        Add User
+                        Add Item
                     </button>
                 ): (
                         <button onClick={updateItem}>
-                            Update User
+                            Update Item
                         </button>
                 )}
                 

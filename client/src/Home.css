@@ -39,7 +39,7 @@
 
 .cards, .addcards{
     border: 90px black;
-    height: 200px;
+    height: 250px;
     display: flex;
     column-gap: 10px;
     justify-content: space-between;
