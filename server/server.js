@@ -12,7 +12,7 @@ const port = 5002;
 const server = createServer(app)
 server.listen(port, () => console.log(`Server is running at ${port}........`))
 app.get("/",(req,res) => res.send("Server is running..."))
-const mongoUrl = "mongodb+srv://challenge:challenge@cluster0.szxje.mongodb.net/?retryWrites=true&w=majority";
+const mongoUrl = "mongodb+srv://production:production@cluster0.w3ngm.mongodb.net/?retryWrites=true&w=majority";
 mongoose.connect(mongoUrl,{
     useNewUrlParser: true,
     useCreateIndex: true,

@@ -30,32 +30,34 @@ const Popup = ({ setPopup, item, setItems, setCardItem }) => {
   
   
     const addItem = () => {
-        
+      if(valid()){
         const uData = {
-            name: data.name,
-            description: data.description,
-            location: data.location,
-            quantity: data.quantity,
-            price: data.price,
-            deletionComment: ''
-        }
+          name: data.name,
+          description: data.description,
+          location: data.location,
+          quantity: data.quantity,
+          price: data.price,
+          deletionComment: ''
+      }
+      axios.post("http://localhost:5002/items/create", uData);
 
-        
-        // Now add user data using axios
-        axios.post("http://localhost:5002/items/create", uData)
+      socket.once('item-added', newData => {
+        console.log(newData)
+        setItems((item) => ([...item, newData]))
+      
+    })
 
-        // Making realtime using Socket.io
-        socket.once('item-added', newData => {
-            console.log(newData)
-            setItems((item) => ([...item, newData]))
-          
-        })
-        
-        
         setPopup(false)
+      }
+      else{
+        
+        alert("Please fill all the inputs and quantity and price have to be positive number ! \nYou also have to select a location ");
+      }
+
     }
 
     const valid = () => {
+     
       if(data.name === ""){
         return false;
       }
@@ -63,19 +65,19 @@ const Popup = ({ setPopup, item, setItems, setCardItem }) => {
         return false;
         
       }
-      if(data.locaton === ""){
+      if(data.location === ""){
         return false;
         
       }
       if(
         isNaN(+(data.price)) ||
-        data.price <= 0 ){
+        data.price < 0 ){
         return false;
         
       }
       if(
         isNaN(+(data.quantity)) ||
-        data.quantity <= 0 ){
+        data.quantity < 0 ){
         return false;
         
       }
@@ -96,15 +98,16 @@ const Popup = ({ setPopup, item, setItems, setCardItem }) => {
         axios.put("http://localhost:5002/items/update",uData)
 
         socket.once('item-updated', (updatedData) => {
-            console.log("aaaa");
+            
             setCardItem(updatedData)
+            window.location.reload() 
         })
 
         setPopup(false)
       }
       else{
         
-        alert("Please fill all the inputs and quantity and price have to be positive number !");
+        alert("Please fill all the inputs and quantity and price have to be positive number ! \n You also have to select a location ");
       }
     }
 
@@ -135,17 +138,7 @@ const Popup = ({ setPopup, item, setItems, setCardItem }) => {
                 />
               </label>
                 
-              <label>
-                Location
-                 <input type="text"
-                    value={data.location}
-                    onChange={(e) => setData(prevstate => ({
-                        ...prevstate,
-                        location: e.target.value
-                    }))}
-                />
-              </label>
-               
+      
               <label>
                 Quantity
                  <input 
@@ -171,6 +164,21 @@ const Popup = ({ setPopup, item, setItems, setCardItem }) => {
                     }))}
                 />
               </label>
+              <label>
+                Location
+                <select id="location" defaultValue=''
+              onChange={(e) => setData(prevstate => ({
+                ...prevstate,
+                location: e.target.value
+            }))}>
+        <option value="London,uk">London</option>
+        <option value="Montreal,ca">Montreal</option>
+        <option value="Toronto,ca">Toronto</option>
+        <option value="Ottawa,ca">Ottawa</option>
+        <option value="Vancouver,ca">Vancouver</option>
+      </select>
+              </label>
+               
                
                 {!item ? (
                     <button onClick={addItem}>

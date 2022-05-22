@@ -22,10 +22,10 @@ const PopupComment = ({ setPopupComment, item, setItems, setCardItem }) => {
         deletionComment: ''
     });
 
-    useEffect(() => {
+    useEffect(() => { 
         if(item) setData(item);
     }, [])
-
+    
 
 
 
@@ -37,15 +37,15 @@ const PopupComment = ({ setPopupComment, item, setItems, setCardItem }) => {
             location: data.location,
             quantity: data.quantity,
             price: data.price,
-            deletionComment: data.deletionComment,
+            deletionComment: data.deletionComment || "no comment",
             _id: data._id
         }
         axios.put("http://localhost:5002/items/update",uData)
 
         socket.once('item-updated', (updatedData) => {
-            console.log("aaaa");
+          
             setCardItem(updatedData)
-             window.location.reload()
+            window.location.reload()
         })
        
     }
@@ -55,7 +55,7 @@ const PopupComment = ({ setPopupComment, item, setItems, setCardItem }) => {
         <div className="pop-up">
             <div className="input-box">
                 <CancelIcon onClick={() => setPopupComment(false)} className="cross-btn" />
-                <h3>Enter item details:</h3>
+                <h3>Enter the deletion comment:</h3>
                 <input type="text"
                     value={data.deletionComment ?? ''}
                     onChange={(e) => setData( prevstate => ({

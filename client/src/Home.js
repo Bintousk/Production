@@ -19,7 +19,6 @@ const Home = () => {
     },[])
 
 
-    console.log(items)
 
     return (
         <div>
@@ -31,7 +30,7 @@ const Home = () => {
                     setItems={setItems}/>
                 ):
                 <React.Fragment key={item._id}></React.Fragment>
-                // <div key={item._id}></div>
+               
                 )}
                 
                 <Card type="add" setItems={setItems}/>
@@ -44,10 +43,10 @@ const Home = () => {
                     setItems={setItems}/>
                 ):
                 <React.Fragment key={item._id}></React.Fragment>
-                // <div key={item._id}></div>
+               
                 )}
                 
-                <Card type="add" setItems={setItems}/>
+               
             </div>
         </div>
     )

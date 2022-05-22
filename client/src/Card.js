@@ -7,6 +7,8 @@ import Popup from './Popup';
 import PopupComment from './PopupComment';
 import axios from 'axios';
 import io from 'socket.io-client'
+import { stringify } from 'querystring';
+
 const socket = io('http://localhost:5002/');
 
 const Card = ({ type, item, setItems, allItems }) => {
@@ -27,24 +29,19 @@ const Card = ({ type, item, setItems, allItems }) => {
         if(item) setData(item);
     }, [])
 
-    const handleDelete = () => {
-        const uData = {
-            name: data.name,
-            description: data.description,
-            location: data.location,
-            quantity: data.quantity,
-            price: data.price,
-            deletionComment: data.deletionComment,
-            _id: data._id
-        }
-        axios.put("http://localhost:5002/items/update",uData)
+    const[locationInfo, setLocationInfo] = useState();
+    useEffect(()=>{
+        axios.get('http://api.openweathermap.org/data/2.5/weather?q='+data.location+'&APPID=ed4802a96a03a05c9c12f782aff76684').then(res => {
+            const tempCelsius = res.data.main.temp - 273.15
+            const info = 'the current temperature is '+ tempCelsius.toFixed(2) + '˚C and the humidity is at ' + res.data.main.humidity
 
-        socket.once('item-updated', (updatedData) => {
-            console.log("aaaa");
-            setCardItem(updatedData);
+
+
+            setLocationInfo(info)
+        }).catch(err => {
+            setLocationInfo("no information available")
         })
-   
-    }
+    })
 
     
 
@@ -68,7 +65,8 @@ const Card = ({ type, item, setItems, allItems }) => {
                             <p className="about">Description: {carItem.description}</p>
                             <p className="location">Location: {carItem.location}</p>
                             <p className="quantity">Quantity: {carItem.quantity}</p>
-                            <p className="price">Price: {carItem.price}</p>
+                            <p className="price">Price: {carItem.price} $ </p>
+                            <p className="weather">Weather description : {locationInfo}</p>
                             
                         </div>
 
