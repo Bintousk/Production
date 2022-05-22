@@ -171,7 +171,7 @@ const Popup = ({ setPopup, item, setItems, setCardItem }) => {
                 ...prevstate,
                 location: e.target.value
             }))}>
-        <option value="London,uk">London</option>
+        <option value="Laval,ca">Laval</option>
         <option value="Montreal,ca">Montreal</option>
         <option value="Toronto,ca">Toronto</option>
         <option value="Ottawa,ca">Ottawa</option>
@@ -182,11 +182,11 @@ const Popup = ({ setPopup, item, setItems, setCardItem }) => {
                
                 {!item ? (
                     <button onClick={addItem}>
-                        Add User
+                        Add Item
                     </button>
                 ): (
                         <button onClick={updateItem}>
-                            Update User
+                            Update Item
                         </button>
                 )}
                 

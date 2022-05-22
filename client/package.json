@@ -12,6 +12,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.2",
+    "react-test-renderer": "^17.0.2",
     "socket.io-client": "^3.1.1",
     "web-vitals": "^1.1.0"
   },
@@ -38,5 +39,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/jest": "^27.5.1"
   }
 }
